@@ -53,21 +53,31 @@ Then, open `notebook/main.ipynb` in your browser.
 
 ## Iterations
 
-### Iteration 1: Logistic Regression
-- Assumption: All people died
-- Kaggle Score: 0.6220
-- Learning: Simple preprocessing already beats the baseline.
+### Iteration 1: Naive Baseline
+- **Assumption:** All passengers died.
+- **Kaggle Score:** 0.6220
+- **Learning:** Establishes a baseline score to beat. Any model performing worse than this is not useful.
 
-### Iteration 2: Logistic Regression
-- Features: Pclass, Sex, Age, Fare, SibSp, Parch
-- Preprocessing: filled missing values, encoded categories
-- Validation Accuracy: 0.78
-- Kaggle Score: 0.75358
-- Learning: Simple preprocessing already beats the baseline.
+### Iteration 2: Logistic Regression with Basic Features
+- **Features:** `Pclass`, `Sex`, `Age`, `Fare`, `SibSp`, `Parch`.
+- **Preprocessing:** Filled missing values and encoded categorical features.
+- **Validation Accuracy:** ~78.5% (5-Fold Cross-Validation)
+- **Kaggle Score:** 0.75358
+- **Learning:** A simple Logistic Regression model with basic feature cleaning already provides a significant improvement over the naive baseline. This shows the importance of using relevant features.
 
-### Iteration 3: Feature Engineering
-- New Features: FamilySize, IsAlone, Title, FareBin, FarePerPerson, AgeGroup, Deck
-- Preprocessing: filled missing values, encoded categories
-- Validation Accuracy: 0.8171
-- Kaggle Score: 0.75358
-- Learning: RandomForest model does better than Logistic regression model
+### Iteration 3: Smart Feature Engineering
+- **New Features:** `FamilySize`, `IsAlone`, `Title`, `AgeGroup`, `FareBin`, `FarePerPerson`, `Deck`.
+- **Model Comparison:** Compared Logistic Regression with Random Forest.
+- **Validation Accuracy:** 
+    - Logistic Regression: ~81.5% CV
+    - Random Forest: ~83.8% CV
+- **Learning:** Feature engineering is crucial. Creating new features that capture more information (like `FamilySize` or `Title`) can lead to a noticeable improvement in model performance. The Random Forest model performed better than Logistic Regression, suggesting that a more complex model can capture non-linear relationships in the data.
+
+### Iteration 4: Model Optimization & Hyperparameter Tuning
+- **Approach:** Compared multiple models (Logistic Regression, Random Forest, Gradient Boosting, SVM, KNN) and tuned hyperparameters for the top performers.
+- **Model Performance:**
+    - **Gradient Boosting:** ~83.2% CV (Best baseline)
+    - **Random Forest:** ~83.5% CV (After tuning)
+    - **Logistic Regression:** ~81.1% CV (After tuning)
+- **Final Model Selection:** **Logistic Regression**.
+- **Learning:** While more complex models like Gradient Boosting and Random Forest achieved slightly higher cross-validation scores, they also showed signs of overfitting (a significant gap between training and validation accuracy). The simpler Logistic Regression model, although slightly less accurate, demonstrated better generalization. This highlights a critical trade-off in machine learning: the balance between performance and generalization. For this project, a simpler, more robust model was chosen as the "safest" option.
